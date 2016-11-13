@@ -1,0 +1,15 @@
+---
+- hosts: automation-servers
+
+  tasks:
+  - name: add EPEL repository
+    yum_repository:
+      name: epel
+      description: EPEL Yum repository
+      baseurl: http://dl.fedoraproject.org/pub/epel/7/x86_64/
+
+  - name: install pip
+    yum: name=python-pip state=latest
+
+  - name: install package docker-py
+    pip: name=docker-py
