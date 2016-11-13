@@ -1,0 +1,11 @@
+[cicd-servers]
+localhost
+
+[apigateway-servers]
+localhost
+
+[locationapi-servers]
+localhost
+
+[teamapi-servers]
+localhost
