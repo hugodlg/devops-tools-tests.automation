@@ -1,3 +1,6 @@
+[automation-servers]
+localhost
+
 [cicd-servers]
 localhost
 
