@@ -4,6 +4,9 @@ localhost
 [cicd-servers]
 localhost
 
+[dockerregistry-servers]
+localhost
+
 [apigateway-servers]
 localhost
 

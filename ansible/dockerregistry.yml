@@ -1,0 +1,22 @@
+---
+- hosts: dockerregistry-servers
+  tasks:
+  - name: add Docker repository
+    yum_repository:
+      name: docker
+      description: Docker repository
+      baseurl: https://yum.dockerproject.org/repo/main/centos/7/
+      gpgcheck: yes
+      gpgkey: https://yum.dockerproject.org/gpg
+
+  - name: install docker
+    yum: name=docker-engine state=latest
+
+  - name: start docker daemon
+    service: name=docker state=started
+
+  - name: create registry container
+    docker_container:
+      name: registry
+      image: registry
+      published_ports: 5000:5000
