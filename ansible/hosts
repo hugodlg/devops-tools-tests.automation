@@ -12,3 +12,6 @@ localhost
 
 [teamapi-servers]
 localhost
+
+[userapi-servers]
+localhost
