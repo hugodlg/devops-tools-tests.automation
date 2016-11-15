@@ -14,6 +14,7 @@ COPY ./app.rb ${homedir}/app.rb
 
 USER ${user}
 
-ENTRYPOINT ruby /home/locationapi/app.rb
+WORKDIR ${homedir}
+ENTRYPOINT ruby app.rb
 
 EXPOSE 8080/tcp
