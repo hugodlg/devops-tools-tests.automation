@@ -7,11 +7,14 @@ node {
             sh 'docker push registry:5000/locationapi'
         }
     }
+
     dir('automation') {
         sh 'git clone https://github.com/hugodlg/devops-tools-tests.automation.git .'
         
         dir('ansible') {
             sh 'ansible-playbook -e "api=locationapi apiport=800" api.yml'
         }
+
+        deleteDir()
     }
 }
