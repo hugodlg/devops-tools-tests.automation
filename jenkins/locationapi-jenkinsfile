@@ -8,8 +8,7 @@ node {
         }
     }
     dir('automation') {
-        //git poll: false, url: 'https://github.com/hugodlg/devops-tools-tests.automation.git'
-        checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'PathRestriction', excludedRegions: '', includedRegions: 'ansible/api.yml']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/hugodlg/devops-tools-tests.automation.git']]]
+        sh 'git clone https://github.com/hugodlg/devops-tools-tests.automation.git .'
         
         dir('ansible') {
             sh 'ansible-playbook -e "api=locationapi apiport=800" api.yml'
