@@ -15,8 +15,22 @@
   - name: start docker daemon
     service: name=docker state=started
 
-  - name: create jenkins container
-    docker_container:
-      name: cicd
-      image: jenkins
-      published_ports: 8081:8080
+  - name: add Jenkins repository
+    yum_repository:
+      name: jenkins
+      description: Jenkins repository
+      baseurl: http://pkg.jenkins.io/redhat-stable
+      gpgcheck: yes
+      gpgkey: http://pkg.jenkins-ci.org/redhat-stable/jenkins-ci.org.key
+
+  - name: install java
+    yum: name=java state=latest
+
+  - name: install jenkins
+    yum: name=jenkins state=latest
+
+  - name: add jenkins user to docker group
+    user: name=jenkins groups=docker append=yes
+
+  - name: start jenkins
+    service: name=jenkins state=started
