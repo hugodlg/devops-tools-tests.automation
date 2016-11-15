@@ -1,5 +1,5 @@
 ---
-- hosts: locationapi-servers
+- hosts: ${api}-servers
   tasks:
   - name: add Docker repository
     yum_repository:
@@ -15,9 +15,9 @@
   - name: start docker daemon
     service: name=docker state=started
 
-  - name: create locationapi container
+  - name: create ${api} container
     docker_container:
-      name: locationapi
-      image: registry:5000/locationapi
-      published_ports: 800:8080
+      name: ${api}
+      image: registry:5000/${api}
+      published_ports: ${apiport}:8080
       recreate: yes
