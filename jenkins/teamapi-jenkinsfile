@@ -14,7 +14,7 @@ node {
         dir('ansible') {
             sh 'ansible-playbook -e "api=teamapi apiport=801" api.yml'
         }
-
-        deleteDir()
     }
+
+    deleteDir()
 }
