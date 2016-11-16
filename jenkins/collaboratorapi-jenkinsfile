@@ -12,7 +12,7 @@ node {
         sh 'git clone https://github.com/hugodlg/devops-tools-tests.automation.git .'
         
         dir('ansible') {
-            sh 'ansible-playbook -e "api=collaboratorapi apiport=803" api.yml'
+            sh 'ansible-playbook -e "api=collaboratorapi apiport=802" api.yml'
         }
     }
 
