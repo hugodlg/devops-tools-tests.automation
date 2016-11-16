@@ -1,0 +1,20 @@
+node {
+    dir('collaboratorapi') {
+        git 'https://github.com/hugodlg/devops-tools-tests.collaboratorapi.git'
+        
+        configFileProvider([configFile(fileId: 'devops-tools-tests.api.Dockerfile', targetLocation: 'Dockerfile')]) {
+            sh 'docker build --build-arg api=collaboratorapi -t registry:5000/collaboratorapi .'
+            sh 'docker push registry:5000/collaboratorapi'
+        }
+    }
+
+    dir('automation') {
+        sh 'git clone https://github.com/hugodlg/devops-tools-tests.automation.git .'
+        
+        dir('ansible') {
+            sh 'ansible-playbook -e "api=collaboratorapi apiport=803" api.yml'
+        }
+    }
+
+    deleteDir()
+}
