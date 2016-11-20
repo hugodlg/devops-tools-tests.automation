@@ -21,3 +21,10 @@
       image: "registry:5000/{{ api }}"
       published_ports: "{{ apiport }}:8080"
       recreate: yes
+
+  - name: add "{{ api }}" container to api network
+    docker_network:
+      name: api-network
+      connected:
+        - "{{ api }}"
+      appends: yes
