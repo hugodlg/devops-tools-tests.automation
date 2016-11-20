@@ -1,7 +1,5 @@
 FROM ruby
 
-RUN 
-
 ARG api
 
 ARG homedir=/home/${api}
