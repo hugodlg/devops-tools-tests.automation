@@ -1,0 +1,20 @@
+node {
+    dir('websiteapi') {
+        git 'https://github.com/hugodlg/devops-tools-tests.websiteapi.git'
+        
+        configFileProvider([configFile(fileId: 'devops-tools-tests.api.Dockerfile', targetLocation: 'Dockerfile')]) {
+            sh 'docker build --build-arg api=websiteapi -t registry:5000/websiteapi .'
+            sh 'docker push registry:5000/websiteapi'
+        }
+    }
+
+    dir('automation') {
+        sh 'git clone https://github.com/hugodlg/devops-tools-tests.automation.git .'
+        
+        dir('ansible') {
+            sh 'ansible-playbook -e "api=websiteapi apiport=803" api.yml'
+        }
+    }
+
+    deleteDir()
+}
