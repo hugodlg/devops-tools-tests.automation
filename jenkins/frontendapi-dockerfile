@@ -1,7 +1,5 @@
 FROM node
 
-RUN 
-
 ARG api
 
 ARG homedir=/home/${api}
@@ -22,6 +20,6 @@ WORKDIR ${homedir}
 
 RUN npm install
 
-ENTRYPOINT ruby app.rb
+ENTRYPOINT node app.js
 
 EXPOSE 8080/tcp
