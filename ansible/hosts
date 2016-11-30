@@ -1,3 +1,6 @@
+[automation-server]
+localhost
+
 [automation-servers]
 localhost
 
