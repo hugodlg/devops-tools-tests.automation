@@ -1,0 +1,6 @@
+{
+  "bind_addr": {{ inventory_hostname|to_json }},
+  "client_addr": {{ inventory_hostname|to_json }},
+  "start_join": {{ groups['apis-masters']|to_json }},
+  "data_dir": "/var/lib/consul"
+}

@@ -1,0 +1,9 @@
+{
+  "server": true,
+  "bind_addr": {{ inventory_hostname|to_json }},
+  "client_addr": {{ inventory_hostname|to_json }},
+  "bootstrap_expect": {{ ansible_play_hosts|length }},
+  "start_join": {{ ansible_play_hosts|to_json }},
+  "ui": true,
+  "data_dir": "/var/lib/consul"
+}

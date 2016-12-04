@@ -1,0 +1,24 @@
+---
+- name: install unzip
+  yum: name=unzip state=latest
+
+- name: install nomad
+  unarchive: src=https://releases.hashicorp.com/nomad/0.5.0/nomad_0.5.0_linux_amd64.zip dest=/usr/local/bin remote_src=yes
+
+- name: create nomad user
+  user: name=nomad
+
+- name: create nomad conf dir
+  file: path=/etc/nomad.d state=directory
+
+- name: add agent conf
+  template: src={{ mode }}.hcl.j2 dest=/etc/nomad.d/{{ mode }}.hcl owner=root group=root
+
+- name: create nomad var dir
+  file: path=/var/lib/nomad state=directory owner=nomad group=nomad
+
+- name: copy nomad service file
+  copy: src=nomad.service dest=/etc/systemd/system/nomad.service owner=root group=root
+
+- name: start nomad
+  systemd: name=nomad state=restarted daemon_reload=yes enabled=yes

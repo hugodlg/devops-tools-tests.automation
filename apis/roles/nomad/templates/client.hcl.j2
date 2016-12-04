@@ -1,0 +1,11 @@
+bind_addr = "{{ inventory_hostname }}"
+
+data_dir = "/var/lib/nomad"
+
+client {
+  enabled = true
+}
+
+consul {
+  address = "{{ inventory_hostname }}:8500"
+}

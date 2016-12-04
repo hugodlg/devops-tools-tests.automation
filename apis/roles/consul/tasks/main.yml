@@ -1,0 +1,24 @@
+---
+- name: install unzip
+  yum: name=unzip state=latest
+
+- name: install consul
+  unarchive: src=https://releases.hashicorp.com/consul/0.7.1/consul_0.7.1_linux_amd64.zip dest=/usr/local/bin remote_src=yes
+
+- name: create consul user
+  user: name=consul
+
+- name: create consul conf dir
+  file: path=/etc/consul.d state=directory
+
+- name: add agent conf
+  template: src={{ mode }}.json.j2 dest=/etc/consul.d/{{ mode }}.json owner=root group=root
+
+- name: create consul var dir
+  file: path=/var/lib/consul state=directory owner=consul group=consul
+
+- name: copy consul service file
+  copy: src=consul.service dest=/etc/systemd/system/consul.service owner=root group=root
+
+- name: start consul
+  systemd: name=consul state=restarted daemon_reload=yes enabled=yes

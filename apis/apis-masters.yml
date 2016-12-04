@@ -1,0 +1,6 @@
+---
+- hosts: apis-masters
+  roles:
+    - docker
+    - { role: consul, mode: 'server' }
+    - { role: nomad, mode: 'server' }
