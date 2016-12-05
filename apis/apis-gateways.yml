@@ -1,0 +1,8 @@
+---
+- hosts: apis-gateways
+  roles:
+    - docker
+    - { role: consul, mode: 'client' }
+#  tasks:
+#    - name: name
+#      yum: yum

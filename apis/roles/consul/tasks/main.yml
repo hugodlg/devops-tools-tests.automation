@@ -22,3 +22,12 @@
 
 - name: start consul
   systemd: name=consul state=restarted daemon_reload=yes enabled=yes
+
+- name: copy resolv.conf
+  copy: src=resolv.conf dest=/etc/resolv.conf owner=root group=root
+
+- name: copy dnsmasq consul conf
+  template: src=10-consul.dnsmasq.j2 dest=/etc/dnsmasq.d/10-consul owner=root group=root
+
+- name: start dnsmasq
+  systemd: name=dnsmasq state=restarted daemon_reload=yes enabled=yes

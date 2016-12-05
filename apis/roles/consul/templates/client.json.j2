@@ -1,6 +1,12 @@
 {
   "bind_addr": {{ inventory_hostname|to_json }},
   "client_addr": {{ inventory_hostname|to_json }},
+
+  "domain": "private",
+
   "start_join": {{ groups['apis-masters']|to_json }},
+  "retry_join": {{ groups['apis-masters']|to_json }},
+  "retry_interval": "15s",
+
   "data_dir": "/var/lib/consul"
 }

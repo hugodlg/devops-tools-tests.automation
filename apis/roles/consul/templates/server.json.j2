@@ -1,9 +1,17 @@
 {
-  "server": true,
   "bind_addr": {{ inventory_hostname|to_json }},
   "client_addr": {{ inventory_hostname|to_json }},
+
+  "domain": "private",
+
+  "server": true,
   "bootstrap_expect": {{ ansible_play_hosts|length }},
+
   "start_join": {{ ansible_play_hosts|to_json }},
+  "retry_join": {{ ansible_play_hosts|to_json }},
+  "retry_interval": "15s",
+
   "ui": true,
+
   "data_dir": "/var/lib/consul"
 }

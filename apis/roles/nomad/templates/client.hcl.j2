@@ -1,4 +1,4 @@
-bind_addr = "{{ inventory_hostname }}"
+bind_addr = {{ inventory_hostname|to_json }}
 
 data_dir = "/var/lib/nomad"
 
