@@ -12,4 +12,4 @@ RUN apt-get update \
 EXPOSE 80
 
 ENTRYPOINT service nginx start \
-        && consul-template -consul consul.service.private -template "/var/lib/consul-template/templates/nginx.conf.ctmpl:/etc/nginx/nginx.conf:service nginx reload"
+        && consul-template -consul consul.service.private:8500 -template "/var/lib/consul-template/templates/nginx.conf.ctmpl:/etc/nginx/nginx.conf:service nginx reload"

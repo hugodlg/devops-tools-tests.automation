@@ -10,8 +10,7 @@ job "docker-registry" {
       driver = "docker"
 
       artifact {
-        source      = "./docker-registry/certs.tar.gz"
-        destination = "/"
+        source = "https://github.com/hugodlg/devops-tools-tests.automation/raw/master/apis/docker-registry/certs.tar.gz"
       }
 
       config {
@@ -20,11 +19,11 @@ job "docker-registry" {
         port_map = {
           registry = 5000
         }
+      }
 
-        args = [
-          "REGISTRY_HTTP_TLS_CERTIFICATE=/certs/domain.crt",
-          "REGISTRY_HTTP_TLS_KEY=/certs/domain.key"
-        ]
+      env = {
+        "REGISTRY_HTTP_TLS_CERTIFICATE" = "/local/certs/domain.crt"
+        "REGISTRY_HTTP_TLS_KEY" = "/local/certs/domain.key"
       }
 
       service {
