@@ -3,6 +3,49 @@
   roles:
     - docker
     - { role: consul, mode: 'client' }
-#  tasks:
-#    - name: name
-#      yum: yum
+  tasks:
+    - name: install epel
+      yum: name=epel-release state=latest
+
+    - name: install pip
+      yum: name=python-pip state=latest
+  
+    - name: install package docker-py
+      pip: name=docker-py
+
+    - name: install consul-template
+      unarchive: src=https://releases.hashicorp.com/consul-template/0.16.0/consul-template_0.16.0_linux_amd64.zip dest=/usr/local/bin remote_src=yes
+
+    - name: create kong docker network
+      docker_network:
+        name: kong
+
+    - name: create nginx container
+      docker_container:
+        name: nginx
+        image: nginx
+        networks:
+          - name: kong
+
+    - name: create kong db container
+      docker_container:
+        name: kong-db
+        image: postgres
+        env:
+          POSTGRES_USER: kong
+          POSTGRES_DB: kong
+        networks:
+          - name: kong
+
+    - name: create kong container
+      docker_container:
+        name: kong
+        image: kong
+        env:
+          KONG_DATABASE: postgres
+          KONG_PG_HOST: kong-db
+        ports:
+          - "80:8000"
+          - "8001:8001"
+        networks:
+          - name: kong
